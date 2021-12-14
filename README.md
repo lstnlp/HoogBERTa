@@ -24,4 +24,13 @@ $ python main.py
 
 # Documentation
 
-Coming soon...
+To annotate POS, NE and cluase boundary, use the following commands
+
+```pyhthon
+from hoogberta.multitagger import HoogBERTaMuliTaskTagger
+tagger = HoogBERTaMuliTaskTagger()
+output = tagger.nlp("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
+```
+
+The output is a list of annotations (token, POS, NE, MARK). "MARK" is annotation for a single white space, which can be PUNC (not clause boundary) or MARK (clause boundary). Note that, for clause boundary classification, the current pretrained model works well with inputs that contain two clauses. If you want a more precise output, we suggest that you could run tagger.nlp iteratively.
+
