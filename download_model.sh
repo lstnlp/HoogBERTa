@@ -20,3 +20,5 @@ gdown https://drive.google.com/uc?id=1xQHDAE8nbFu2wAM6SAXtTjk890JWLUhy
 unzip dict.zip
 
 mv dict ./models
+
+rm dict.zip
