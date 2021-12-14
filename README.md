@@ -34,3 +34,12 @@ output = tagger.nlp("วันที่ 12 มีนาคมนี้ ฉัน
 
 The output is a list of annotations (token, POS, NE, MARK). "MARK" is annotation for a single white space, which can be PUNC (not clause boundary) or MARK (clause boundary). Note that, for clause boundary classification, the current pretrained model works well with inputs that contain two clauses. If you want a more precise output, we suggest that you could run tagger.nlp iteratively.
 
+To extract token features, based on the RoBERTa architecture, use the following commands
+
+```python
+from hoogberta.encoder import HoogBERTaEncoder
+encoder = HoogBERTaEncoder()
+token_ids, features = encoder.extract_features("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
+```
+
+In current version, both methods support only one sentence (or document) at a time.
