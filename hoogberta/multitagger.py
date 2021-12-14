@@ -22,6 +22,8 @@ class HoogBERTaMuliTaskTagger(object):
         args = Config()
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
+        self.model.eval()
+        
         self.plmodel = MultiTaskTaggingModule(self.model)
         self.plmodel.load_from_checkpoint(checkpoint_path=args.model,model=self.model,strict=False)
         self.srcDict = self.plmodel.model.bert.task.source_dictionary
