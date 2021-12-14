@@ -26,7 +26,7 @@ $ python main.py
 
 To annotate POS, NE and cluase boundary, use the following commands
 
-```pyhthon
+```python
 from hoogberta.multitagger import HoogBERTaMuliTaskTagger
 tagger = HoogBERTaMuliTaskTagger()
 output = tagger.nlp("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
