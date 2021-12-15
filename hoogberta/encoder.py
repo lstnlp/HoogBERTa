@@ -18,10 +18,12 @@ class Config(object):
 
 class HoogBERTaEncoder(object):
 
-    def __init__(self,layer=12):
+    def __init__(self,layer=12,cuda=False):
         args = Config()
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
+        if cuda == True:
+            self.model = self.model.cuda()
         
 
     def extract_features(self,sentence):

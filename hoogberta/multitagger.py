@@ -19,18 +19,23 @@ class Config(object):
 
 class HoogBERTaMuliTaskTagger(object):
 
-    def __init__(self,layer=12):
+    def __init__(self,layer=12,cuda=False):
         args = Config()
+        self.cuda = cuda
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
         self.model.eval()
 
         #Save self.model
         
-        state = torch.load("./models/L12/modelL12.pt")
+        state = torch.load("./models/L12/modelL12.pt",map_location="cpu")
         #Change name in state dict
         #state = self.update_state_dict(state)
         self.model.load_state_dict(state["model_state_dict"])
+
+        if cuda == True:
+            self.model = self.model.cuda()
+
         #torch.save({"model_state_dict": self.model.state_dict()},"modelL12.pt")
         self.srcDict = self.model.bert.task.source_dictionary
 
@@ -66,8 +71,6 @@ class HoogBERTaMuliTaskTagger(object):
         sentence = " _ ".join(all_sent)
         
         input = self.model.bert.encode(sentence).unsqueeze(0)
-
-        self.model(input)
 
         ppos , pne, pmark = self.model(input)
         pos_out =  ppos.argmax(dim = -1).view(-1).tolist()

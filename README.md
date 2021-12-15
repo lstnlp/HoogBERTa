@@ -28,7 +28,7 @@ To annotate POS, NE and cluase boundary, use the following commands
 
 ```python
 from hoogberta.multitagger import HoogBERTaMuliTaskTagger
-tagger = HoogBERTaMuliTaskTagger()
+tagger = HoogBERTaMuliTaskTagger(cuda=False) # or cuda=True
 output = tagger.nlp("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
 ```
 
@@ -38,7 +38,7 @@ To extract token features, based on the RoBERTa architecture, use the following 
 
 ```python
 from hoogberta.encoder import HoogBERTaEncoder
-encoder = HoogBERTaEncoder()
+encoder = HoogBERTaEncoder(cuda=False) # or cuda=True
 token_ids, features = encoder.extract_features("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
 ```
 
