@@ -2,6 +2,7 @@ from .trainer.models import MultiTaskTagger
 from .trainer.utils import load_dictionaries
 from .trainer.tasks.multitask_tagging import MultiTaskTaggingModule
 from attacut import tokenize
+import torch
 
 
 class Config(object):
@@ -18,15 +19,36 @@ class Config(object):
 
 class HoogBERTaMuliTaskTagger(object):
 
-    def __init__(self,layer=12):
+    def __init__(self,layer=12,cuda=False):
         args = Config()
+        self.cuda = cuda
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
         self.model.eval()
+
+        #Save self.model
         
-        self.plmodel = MultiTaskTaggingModule(self.model)
-        self.plmodel.load_from_checkpoint(checkpoint_path=args.model,model=self.model,strict=False)
-        self.srcDict = self.plmodel.model.bert.task.source_dictionary
+        state = torch.load("./models/L12/modelL12.pt",map_location="cpu")
+        #Change name in state dict
+        #state = self.update_state_dict(state)
+        self.model.load_state_dict(state["model_state_dict"])
+
+        if cuda == True:
+            self.model = self.model.cuda()
+
+        #torch.save({"model_state_dict": self.model.state_dict()},"modelL12.pt")
+        self.srcDict = self.model.bert.task.source_dictionary
+
+    def update_state_dict(self,old_state):
+        state2 = dict()
+
+        for param in old_state['model_state_dict']:
+            tensor = old_state['model_state_dict'][param]
+            param = param.replace(".decoder.",".encoder.")
+            state2[param] = tensor
+
+        return state2
+
 
     def extract_features(self,sentence):
         all_sent = []
@@ -36,7 +58,7 @@ class HoogBERTaMuliTaskTagger(object):
         
         sentence = " _ ".join(all_sent)
         
-        input = self.plmodel.model.bert.encode(sentence).unsqueeze(0)
+        input = self.model.bert.encode(sentence).unsqueeze(0)
         
 
     def nlp(self,sentence):
@@ -48,11 +70,9 @@ class HoogBERTaMuliTaskTagger(object):
         
         sentence = " _ ".join(all_sent)
         
-        input = self.plmodel.model.bert.encode(sentence).unsqueeze(0)
+        input = self.model.bert.encode(sentence).unsqueeze(0)
 
-        self.plmodel.model(input)
-
-        ppos , pne, pmark = self.plmodel.model(input)
+        ppos , pne, pmark = self.model(input)
         pos_out =  ppos.argmax(dim = -1).view(-1).tolist()
         ne_out  =  pne.argmax(dim = -1).view(-1).tolist()
         mark_out = pmark.argmax(dim = -1).view(-1).tolist()

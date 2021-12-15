@@ -3,9 +3,9 @@ mkdir models/L12
 mkdir models/hoogberta_base
 
 
-gdown https://drive.google.com/uc?id=1Cdt2uPtRFgUa5CgtifWlHH2fzNsm3g-n
+gdown https://drive.google.com/uc?id=1bBSWQzzEt99mYd_EY5W-lQKW6L-D8axW
 
-mv model.ckpt ./models/L12
+mv modelL12.pt ./models/L12
 
 gdown https://drive.google.com/uc?id=1fYtRAyh6d4W9LVCSJiSYKKM_CCPflBc9
 gdown https://drive.google.com/uc?id=1ZNxpVHNZbAfdWA-wu7iMSUtcySzQCJam
