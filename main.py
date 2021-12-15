@@ -1,6 +1,9 @@
 from hoogberta.multitagger import HoogBERTaMuliTaskTagger
 from hoogberta.encoder import HoogBERTaEncoder
 
+import logging 
+logging.disable(logging.INFO)
+
 if __name__ == "__main__":
     tagger = HoogBERTaMuliTaskTagger()
     print(tagger.nlp("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ"))
