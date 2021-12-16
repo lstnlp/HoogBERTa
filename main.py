@@ -4,7 +4,7 @@ from hoogberta.encoder import HoogBERTaEncoder
 import logging 
 logging.disable(logging.INFO)
 
-if __name__ == "__main__":
+def test_single():
     tagger = HoogBERTaMuliTaskTagger(cuda=False)
     #tagger = HoogBERTaMuliTaskTagger(cuda=False,base_path="/home/yourusername/.hoogberta/" ) # Use this if you have moved the "models" directory to ~/.hoogberta.
     
@@ -16,3 +16,20 @@ if __name__ == "__main__":
     token_ids, features = encoder.extract_features("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
     print(token_ids)
     print(features.size())
+
+def test_encode_batch():
+    encoder = HoogBERTaEncoder(cuda=False)
+    #encoder = HoogBERTaEncoder(cuda=False,base_path="/home/yourusername/.hoogberta/")
+    inputText = ["วันที่ 12 มีนาคมนี้","ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ"]
+    token_ids, features = encoder.extract_features_batch(inputText)
+
+    print(features.size())
+    print(token_ids)
+
+    tokens, features = encoder.extract_features_from_tensor(token_ids)
+    print(features.size())
+    print(tokens)
+
+
+if __name__ == "__main__":
+    test_encode_batch()

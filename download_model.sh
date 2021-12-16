@@ -2,7 +2,6 @@ mkdir models
 mkdir models/L12
 mkdir models/hoogberta_base
 
-
 gdown https://drive.google.com/uc?id=1bBSWQzzEt99mYd_EY5W-lQKW6L-D8axW
 
 mv modelL12.pt ./models/L12

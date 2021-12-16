@@ -1,6 +1,9 @@
 from .trainer.models import MultiTaskTagger
 from .trainer.utils import load_dictionaries,Config
 from .trainer.tasks.multitask_tagging import MultiTaskTaggingModule
+
+from fairseq.data.data_utils import collate_tokens
+
 from attacut import tokenize
 import torch
 
