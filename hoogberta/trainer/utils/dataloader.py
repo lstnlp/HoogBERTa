@@ -28,7 +28,7 @@ def build_data_iterator(args,path,dataset="pos",type="train",shuffle=False):
     return iter(train_iter)
 
 def load_dictionaries(path):
-    path = Path.cwd() / path
+    path = Path(path)
     pos_dict = Dictionary().load(open(path / "./models/dict/pos.txt","r",encoding="utf-8"))
     pos_dict.add_symbol("<s>")
     pos_dict.add_symbol("</s>")

@@ -39,7 +39,7 @@ class MultiTaskTagger(nn.Module):
     def __init__(self,args, output_dim = None):
         super().__init__()
         self.args = args
-       
+        self.base_path = args.base_path
         self.encoder = self.load_pretrained(args.pretrained)
         self.bert = self.encoder
 
@@ -55,7 +55,7 @@ class MultiTaskTagger(nn.Module):
 
     def load_pretrained(self,pretrained="lst"):
         if pretrained == "lst":
-            roberta = RobertaModel.from_pretrained('./models/hoogberta_base/', checkpoint_file='checkpoint_best.pt',bpe="subword_nmt", bpe_codes="./models/hoogberta_base/th_18M.50000.bpe",data_name_or_path=".:")
+            roberta = RobertaModel.from_pretrained(self.base_path + '/models/hoogberta_base/', checkpoint_file='checkpoint_best.pt',bpe="subword_nmt", bpe_codes=self.base_path + "/models/hoogberta_base/th_18M.50000.bpe",data_name_or_path=".:")
             return roberta
 
         return None

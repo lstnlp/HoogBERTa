@@ -1,34 +1,22 @@
 from .trainer.models import MultiTaskTagger
-from .trainer.utils import load_dictionaries
+from .trainer.utils import load_dictionaries,Config
 from .trainer.tasks.multitask_tagging import MultiTaskTaggingModule
 from attacut import tokenize
 import torch
 
-
-class Config(object):
-
-    def __init__(self,layer=12):
-        self.feature_layer = layer
-        self.model = f"./models/L{layer}/model.ckpt"
-        self.task = "multitask-tagging"
-        self.traindata = "./"
-        self.pretrained = "lst"
-        self.dropout = 0.1
-        self.do = "inference"
-
-
 class HoogBERTaMuliTaskTagger(object):
 
-    def __init__(self,layer=12,cuda=False):
-        args = Config()
+    def __init__(self,layer=12,cuda=False,base_path="."):
+        #print(base_path)
+        args = Config(base_path=base_path)
         self.cuda = cuda
-        self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
+        self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(base_path)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
         self.model.eval()
 
         #Save self.model
         
-        state = torch.load("./models/L12/modelL12.pt",map_location="cpu")
+        state = torch.load(base_path + "/models/L12/modelL12.pt",map_location="cpu")
         #Change name in state dict
         #state = self.update_state_dict(state)
         self.model.load_state_dict(state["model_state_dict"])

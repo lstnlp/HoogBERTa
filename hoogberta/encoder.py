@@ -1,26 +1,14 @@
 from .trainer.models import MultiTaskTagger
-from .trainer.utils import load_dictionaries
+from .trainer.utils import load_dictionaries,Config
 from .trainer.tasks.multitask_tagging import MultiTaskTaggingModule
 from attacut import tokenize
 
-
-class Config(object):
-
-    def __init__(self,layer=12):
-        self.feature_layer = layer
-        self.model = f"./models/L{layer}/model.ckpt"
-        self.task = "multitask-tagging"
-        self.traindata = "./"
-        self.pretrained = "lst"
-        self.dropout = 0.1
-        self.do = "inference"
-
-
 class HoogBERTaEncoder(object):
 
-    def __init__(self,layer=12,cuda=False):
-        args = Config()
-        self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(args.traindata)
+    def __init__(self,layer=12,cuda=False,base_path="."):
+        args = Config(base_path=base_path)
+        self.base_path = base_path
+        self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(self.base_path)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
         if cuda == True:
             self.model = self.model.cuda()
