@@ -2,25 +2,23 @@
 
 This repository includes the Thai pretrained language representation (HoogBERTa_base) and the fine-tuned model for multitask sequence labeling.
 
+# Installation
+
+```
+$ python setup.py install
+```
+
+To download model, use
+
+```
+>>> import hoogberta
+>>> hoogberta.download()
+```
+
 # Usage
 
-1. Install required packages
+see test.py
 
-```
-$ pip install -r requirements.txt
-```
-
-2. Download models and dictionaries
-
-```
-$ ./download_model.sh
-```
-
-3. run main.py
-
-```
-$ python main.py
-```
 
 # Documentation
 
