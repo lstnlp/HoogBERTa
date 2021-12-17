@@ -43,7 +43,7 @@ class MultiTaskTagger(nn.Module):
         self.encoder = self.load_pretrained(args.pretrained)
         self.bert = self.encoder
 
-        embedding_dim = self.bert.args.encoder_embed_dim
+        embedding_dim = self.bert.model.encoder.sentence_encoder.embed_tokens.weight.size()[1]
 
         self.fc_pos   = nn.Linear(embedding_dim, output_dim[0])
         self.fc_ne    = nn.Linear(embedding_dim, output_dim[1])

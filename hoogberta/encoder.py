@@ -24,7 +24,7 @@ class HoogBERTaEncoder(object):
         
         sentence = " _ ".join(all_sent)
         
-        tokens = self.model.bert.encode([sentence]).unsqueeze(0)
+        tokens = self.model.bert.encode(sentence).unsqueeze(0)
         all_layers = self.model.bert.extract_features(tokens, return_all_hiddens=True)
         return tokens[0], all_layers[-1][0]
 

@@ -18,7 +18,7 @@ def test_single():
     print(features.size())
 
 def test_encode_batch():
-    encoder = HoogBERTaEncoder(cuda=False)
+    encoder = HoogBERTaEncoder(cuda=False,base_path="/home/peerachet/.hoogberta/")
     #encoder = HoogBERTaEncoder(cuda=False,base_path="/home/yourusername/.hoogberta/")
     inputText = ["วันที่ 12 มีนาคมนี้","ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ"]
     token_ids, features = encoder.extract_features_batch(inputText)
@@ -32,4 +32,5 @@ def test_encode_batch():
 
 
 if __name__ == "__main__":
-    test_encode_batch()
+    test_single()
+    #test_encode_batch()
