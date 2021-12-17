@@ -6,8 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Model files
+/models/
+
 # Distribution / packaging
-models/
 .Python
 build/
 develop-eggs/
