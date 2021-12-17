@@ -6,6 +6,8 @@ import gdown
 
 import zipfile
 
+__version__ = "0.1.0"
+
 def download(targetdir=None):
     os.mkdir("./models")
     os.mkdir("./models/L12")
@@ -29,6 +31,6 @@ def download(targetdir=None):
         zip_ref.extractall("./models")
 
     os.remove("dict.zip")
-    
+
     if targetdir is not None:
         shutil.move("./models",targetdir)
