@@ -72,3 +72,5 @@ Please cite as:
   address={Online}
 }
 ```
+
+Download full-text [PDF](https://drive.google.com/file/d/1jXYscGOeUASBJI9cMfj2sAzthEFPp9Gr/view?usp=sharing)
