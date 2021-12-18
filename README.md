@@ -30,13 +30,13 @@ tagger = HoogBERTaMuliTaskTagger(cuda=False) # or cuda=True
 output = tagger.nlp("วันที่ 12 มีนาคมนี้ ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ")
 ```
 
-If you have moved the "models" directory to otherr than the current one, please specify the "base_path" argument, for example
+Please give the "base path" parameter if you have changed the "models" directory to a different location than the current one, for example. 
 
 ```python
 tagger = HoogBERTaMuliTaskTagger(cuda=False,base_path="/home/user/.hoogberta/" ) 
 ```
 
-The output is a list of annotations (token, POS, NE, MARK). "MARK" is annotation for a single white space, which can be PUNC (not clause boundary) or MARK (clause boundary). Note that, for clause boundary classification, the current pretrained model works well with inputs that contain two clauses. If you want a more precise output, we suggest that you could run tagger.nlp iteratively.
+The output is a list of annotations (token, POS, NE, MARK). "MARK" is annotation for a single white space that can be PUNC (not clause boundary) or MARK (clause boundary). Note that, for clause boundary classification, the current pretrained model works well with inputs containing two clauses. If you want a more precise result, we recommend running tagger.nlp iteratively.
 
 To extract token features, based on the RoBERTa architecture, use the following commands
 
