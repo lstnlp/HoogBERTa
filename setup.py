@@ -12,7 +12,7 @@ setup(
     name='hoogberta',
     packages=['hoogberta'],
     include_package_data=True,
-    version='0.1.0',
+    version='0.1.1',
     install_requires=['torch==1.8','fairseq==0.10.0','seqeval','subword-nmt','pytorch-lightning==1.4.7','scikit-learn','gdown',
                'torchtext==0.6.0','attacut'],
     license='MIT',
