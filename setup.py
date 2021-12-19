@@ -20,7 +20,7 @@ setup(
     author='Peerachet Porkaew',
     author_email='peerachet.porkaew@nectec.or.th',
     url='https://github.com/lstnlp/HoogBERTa',
-    download_url='',
+    download_url='https://github.com/lstnlp/HoogBERTa/archive/refs/tags/v0.1.0.tar.gz',
     keywords=['HoogBERTa: Multi-task Sequence Labeling using Thai Pretrained Language Representation'],
     classifiers=[
         'Development Status :: 1 - Alpha',
