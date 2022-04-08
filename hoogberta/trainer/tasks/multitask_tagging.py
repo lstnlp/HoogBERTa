@@ -1,7 +1,7 @@
-from . import Task
-from . import register_task
-from ..models import build_model
-from ..utils import build_dataloader, build_data_iterator, load_dictionaries
+from hoogberta.tasks import Task
+from hoogberta.tasks import register_task
+from hoogberta.trainer.models import build_model
+from hoogberta.utils import build_dataloader, build_data_iterator, load_dictionaries
 from pathlib import Path
 
 import os, json

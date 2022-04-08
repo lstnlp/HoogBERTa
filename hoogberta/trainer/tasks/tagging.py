@@ -1,5 +1,5 @@
-from . import Task
-from . import register_task
+from hoogberta.tasks import Task
+from hoogberta.tasks import register_task
 
 import argparse
 

@@ -1,6 +1,6 @@
-from .trainer.models import MultiTaskTagger
-from .trainer.utils import load_dictionaries,Config
-from .trainer.tasks.multitask_tagging import MultiTaskTaggingModule
+from hoogberta.trainer.models import MultiTaskTagger
+from hoogberta.trainer.utils import load_dictionaries,Config
+from hoogberta.trainer.tasks.multitask_tagging import MultiTaskTaggingModule
 
 from fairseq.data.data_utils import collate_tokens
 

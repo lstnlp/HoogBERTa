@@ -1,5 +1,5 @@
-from ..utils import build_dataloader
-from . import register_model
+from hoogberta.utils import build_dataloader
+from hoogberta.models import register_model
 
 import time
 import torch.nn as nn
