@@ -2,6 +2,7 @@ from hoogberta.trainer.models import MultiTaskTagger
 from hoogberta.trainer.utils import load_dictionaries,Config
 from hoogberta.trainer.tasks.multitask_tagging import MultiTaskTaggingModule
 from fairseq.data.data_utils import collate_tokens
+from subword_nmt.apply_bpe import BPE
 
 from attacut import tokenize
 
@@ -12,9 +13,15 @@ class HoogBERTaEncoder(object):
         self.base_path = base_path
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(self.base_path)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
+        self.bpe = BPE(open(self.base_path + "/models/hoogberta_base/th_18M.50000.bpe"))
         if cuda == True:
             self.model = self.model.cuda()
-        
+    
+
+    def sentence_to_bpe(self,sentence):
+        sentence = " ".join(tokenize(sentence)).replace("_","[!und:]")
+        return self.bpe.process_line(sentence)
+
 
     def extract_features(self,sentence):
         all_sent = []
