@@ -6,6 +6,25 @@ from subword_nmt.apply_bpe import BPE
 
 from attacut import tokenize
 
+class HoogBERTaBPEEncoder(object):
+    def __init__(self,base_path="."):
+        args = Config(base_path=base_path)
+        self.base_path = base_path
+        self.bpe = BPE(open(self.base_path + "/models/hoogberta_base/th_18M.50000.bpe"))
+
+    def sentence_to_bpe(self,sentence):
+        sentence = " ".join(tokenize(sentence)).replace("_","[!und:]")
+        return self.bpe.process_line(sentence)
+
+    def preprocess_file_to_bpe(self,fname,fout):
+        fp = open(fname,"r").readlines()
+        fo = open(fout,"w")
+        for line in fp:
+            line = self.sentence_to_bpe(line.strip())
+            fo.writelines(line + "\n")
+        fo.close()
+       
+
 class HoogBERTaEncoder(object):
 
     def __init__(self,layer=12,cuda=False,base_path="."):
@@ -14,14 +33,12 @@ class HoogBERTaEncoder(object):
         self.pos_dict, self.ne_dict, self.sent_dict = load_dictionaries(self.base_path)
         self.model = MultiTaskTagger(args,[len(self.pos_dict), len(self.ne_dict), len(self.sent_dict)])
         self.bpe = BPE(open(self.base_path + "/models/hoogberta_base/th_18M.50000.bpe"))
+        self.bpeencoder = HoogBERTaBPEEncoder(self.base_path)
         if cuda == True:
             self.model = self.model.cuda()
-    
 
     def sentence_to_bpe(self,sentence):
-        sentence = " ".join(tokenize(sentence)).replace("_","[!und:]")
-        return self.bpe.process_line(sentence)
-
+        return self.bpeencoder.sentence_to_bpe(sentence)
 
     def extract_features(self,sentence):
         all_sent = []
