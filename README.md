@@ -5,7 +5,7 @@ This repository includes the Thai pretrained language representation (HoogBERTa_
 # Installation
 
 ```
-$ python setup.py install
+$ pip install --editable .
 ```
 
 To download model, use
