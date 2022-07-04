@@ -5,6 +5,7 @@ This repository includes the Thai pretrained language representation (HoogBERTa_
 # Installation
 
 ```
+$ pip install -r requirements.txt
 $ pip install --editable .
 ```
 
