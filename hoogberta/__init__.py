@@ -6,6 +6,8 @@ import gdown
 
 import zipfile
 
+import hoogberta.trainer
+
 __version__ = "0.1.0"
 
 def download(targetdir=None):
