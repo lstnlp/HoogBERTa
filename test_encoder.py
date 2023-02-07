@@ -1,6 +1,11 @@
 from hoogberta.syllable_encoder import HoogBERTaSyllableEncoder
 
 model = HoogBERTaSyllableEncoder(base_path="../")
-output = model.extract_features("สวัสดีครับ")
+batch, output = model.extract_features("สวัสดีครับ123")
+print(output)
+
+print(model.string(batch))
+
+batch, output = model.extract_features_batch(["สวัสดีครับ","สวัสดีค่ะ"])
 print(output)
 
