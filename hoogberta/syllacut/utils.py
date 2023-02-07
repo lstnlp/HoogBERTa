@@ -69,6 +69,11 @@ def replace_non_thai(text):
     # replace non-Thai sequences with <ENG>
     return non_thai_pattern.sub(r' <wENG> ', text)
 
+def find_non_thai(text):
+    non_thai_pattern = re.compile(r'([^\u0E00-\u0E7F\[\]\ \.,!@#\$%\^&\*\(\);:\'\"\?<>\{\}\|\/\\\+=-^0-9]+)')
+    # replace non-Thai sequences with <ENG>
+    return non_thai_pattern.finditer(text)
+
 def pipeline1(text):
     text = text.lower()
     text = replace_emoji(text, token='EMOJI')
@@ -82,7 +87,7 @@ def pipeline1(text):
     text = " ".join(add_space_around_comma_and_dot(text).split())
     return text    
 
-if __name__ == "__main__":
+def test_all():
     out = replace_emoji("HELLO 😀😀 How are you 😀", token='<EMOJI>')
     print(out)
 
@@ -106,3 +111,9 @@ if __name__ == "__main__":
 
     out = pipeline1("ฉันอยากได้ 😀 ' เครื่องIpad Ipad : 我们@ใหม่ A:12,000.1 เครื่อง")
     print(out)
+
+if __name__ == "__main__":
+    match = find_non_thai("ก ipad 1234 กขคง nonthai ok")
+    for m in match:
+        print(m)
+
