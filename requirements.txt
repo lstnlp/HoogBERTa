@@ -1,4 +1,4 @@
-torch==1.8
+torch==1.8.2
 torchtext==0.6.0
 fairseq==0.10.2
 subword-nmt
@@ -7,4 +7,4 @@ scikit-learn
 seqeval
 pytorch-lightning==1.4.7
 attacut
-
+textsearch
