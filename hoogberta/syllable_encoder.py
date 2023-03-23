@@ -12,7 +12,7 @@ class HoogBERTaSyllableEncoder(nn.Module):
         super().__init__()
 
         self.base_path = base_path
-        roberta = RobertaModel.from_pretrained(self.base_path + '/models/', checkpoint_file='checkpoint.pt',data_name_or_path=self.base_path+"/models/")
+        roberta = RobertaModel.from_pretrained(self.base_path + '/models/', checkpoint_file='checkpoint.pt',data_name_or_path=self.base_path+"/models/",bpe="subword_nmt", bpe_codes=self.base_path + "/models/th_18M.50000.bpe")
         self.roberta = roberta
         self.roberta.eval()
         self.dictionary = self.roberta.task.dictionary
