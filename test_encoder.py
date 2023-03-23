@@ -3,6 +3,7 @@ import os
 model_home = os.environ.get('HoogBERTaSyllable')
 
 model = HoogBERTaSyllableEncoder(base_path=model_home)
+model = model.cuda()
 batch, output = model.extract_features("สวัสดีครับ123")
 print(output)
 
