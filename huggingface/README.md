@@ -27,3 +27,9 @@ python upload_model.py --token <huggingface_token> --username <huggingface_usern
 
 ## Notebooks
 Here are the notebooks that I used to explore how to port the model to huggingface. Please note that I run these notebooks on Kaggle kernel.
+
+Available Notebooks:
+- [Hoogberta Encoder Conversion](https://www.kaggle.com/notebooks/welcome?src=https://github.com/new5558/HoogBERTa-huggingface/blob/main/huggingface/notebooks/hoogberta-conversion.ipynb)
+- [Hoogberta MultiTagger Conversion](https://www.kaggle.com/notebooks/welcome?src=https://github.com/new5558/HoogBERTa-huggingface/blob/main/huggingface/notebooks/hoogberta-multitagger-conversion.ipynb)
+
+
