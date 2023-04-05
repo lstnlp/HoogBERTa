@@ -64,6 +64,44 @@ def tokenize_batch_huggingface_tokenizer(sentenceL: List[str], pretokenize, hugg
 
     return batch
 
+def fix_merge_rule(merges, vocab_converted_hoog):
+    """
+    Somehow some vocab in merge.txt did not registered in dict.txt file. 
+    We can easily fix that by removing not registered index from merge rules.
+    """
+    i = 0
+    error_index = []
+    for item in merges:
+        item_com = item[0] + item[1]
+        if item_com not in vocab_converted_hoog or item[0] not in vocab_converted_hoog or item[1] not in vocab_converted_hoog:
+            error_index.append(i)
+        i += 1
+
+    merges_fixed = merges.copy()
+    for i in sorted(error_index, reverse=True):
+        del merges_fixed[i]
+    return merges_fixed
+
+def validate_and_save_tokenizer(pretokenize, encoder, huggingface_bpe):
+    text = 'เราสามารถพิมภาษาไทยได้ดีมั้ย ทดสอบการทำงาน1223123 😋 ဍဍဍကဏ္ဇ'
+    inputText = ["วันที่ 12 มีนาคมนี้","ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ"]
+
+    subwordnmt_result = tokenize_subwordnmt(text, pretokenize, encoder)
+    huggingface_result = tokenize_huggingface_tokenizer(text, pretokenize, huggingface_bpe)
+
+    subwordnmt_result_batch = tokenize_batch_subwordnmt(inputText, pretokenize, encoder)
+    huggingface_result_batch = tokenize_batch_huggingface_tokenizer(inputText, pretokenize, huggingface_bpe)
+
+
+    assert subwordnmt_result.tolist() == huggingface_result
+    assert subwordnmt_result_batch.tolist() == huggingface_result_batch.tolist()
+
+
+    directory = 'data'
+    if not os.path.exists(os.path.join(base_path, directory)):
+        os.makedirs(os.path.join(base_path, directory))
+    huggingface_bpe.save(os.path.join(directory, 'tokenizer.json'))
+
 if __name__ == '__main__':
     encoder = HoogBERTaEncoder(cuda=False)
 
@@ -92,24 +130,8 @@ if __name__ == '__main__':
     for i in range(len(vocabs_hoog)):
         vocab_converted_hoog[vocabs_hoog[i]] = i
 
-    """
-    Somehow some vocab in merge.txt did not registered in dict.txt file. 
-    We can easily fix that by removing not registered index from merge rules.
-    """
 
-    i = 0
-    error_index = []
-    error_coms = []
-    for item in merges:
-        item_com = item[0] + item[1]
-        if item_com not in vocab_converted_hoog or item[0] not in vocab_converted_hoog or item[1] not in vocab_converted_hoog:
-            error_index.append(i)
-        i += 1
-
-    merges_fixed = merges.copy()
-    for i in sorted(error_index, reverse=True):
-        del merges_fixed[i]
-
+    merges_fixed = fix_merge_rule(merges, vocab_converted_hoog)
 
     huggingface_bpe = CharBPETokenizer(
         merges=merges_fixed, 
@@ -128,21 +150,5 @@ if __name__ == '__main__':
     )
 
 
-    text = 'เราสามารถพิมภาษาไทยได้ดีมั้ย ทดสอบการทำงาน1223123 😋 ဍဍဍကဏ္ဇ'
-    inputText = ["วันที่ 12 มีนาคมนี้","ฉันจะไปเที่ยววัดพระแก้ว ที่กรุงเทพ"]
+    validate_and_save_tokenizer(pretokenize, encoder, huggingface_bpe)
 
-    subwordnmt_result = tokenize_subwordnmt(text, pretokenize, encoder)
-    huggingface_result = tokenize_huggingface_tokenizer(text, pretokenize, huggingface_bpe)
-
-    subwordnmt_result_batch = tokenize_batch_subwordnmt(inputText, pretokenize, encoder)
-    huggingface_result_batch = tokenize_batch_huggingface_tokenizer(inputText, pretokenize, huggingface_bpe)
-
-
-    assert subwordnmt_result.tolist() == huggingface_result
-    assert subwordnmt_result_batch.tolist() == huggingface_result_batch.tolist()
-
-
-    directory = 'data'
-    if not os.path.exists(os.path.join(base_path, directory)):
-        os.makedirs(os.path.join(base_path, directory))
-    huggingface_bpe.save(os.path.join(directory, 'tokenizer.json'))
