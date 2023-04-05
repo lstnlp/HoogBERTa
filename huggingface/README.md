@@ -2,7 +2,7 @@
 
 ## Available Models
 1. `HoogBERTaEncoder`
- - [HoogBERTa MLM](https://huggingface.co/new5558/HoogBERTa): `Feature Extraction` and `Mask Language Modeling`
+ - [HoogBERTa](https://huggingface.co/new5558/HoogBERTa): `Feature Extraction` and `Mask Language Modeling`
 2. `HoogBERTaMuliTaskTagger`:
  - [HoogBERTa-NER-lst20](https://huggingface.co/new5558/HoogBERTa-NER-lst20): `Named-entity recognition (NER)` based on LST20
  - [HoogBERTa-POS-lst20](https://huggingface.co/new5558/HoogBERTa-POS-lst20): `Part-of-speech tagging (POS)` based on LST20
