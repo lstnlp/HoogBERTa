@@ -24,3 +24,6 @@ python convert_tokenizer.py
 python convert_model.py
 python upload_model.py --token <huggingface_token> --username <huggingface_username>
 ```
+
+## Notebooks
+Here are the notebooks that I used to explore how to port the model to huggingface. Please note that I run these notebooks on Kaggle kernel.

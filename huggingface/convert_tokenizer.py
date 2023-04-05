@@ -130,7 +130,6 @@ if __name__ == '__main__':
     for i in range(len(vocabs_hoog)):
         vocab_converted_hoog[vocabs_hoog[i]] = i
 
-
     merges_fixed = fix_merge_rule(merges, vocab_converted_hoog)
 
     huggingface_bpe = CharBPETokenizer(
