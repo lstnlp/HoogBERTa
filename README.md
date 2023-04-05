@@ -60,6 +60,14 @@ To use HoogBERTa as an embedding layer, use
 tokens, features = encoder.extract_features_from_tensor(token_ids) # where token_ids is a tensor with type "long".
 ```
 
+# Huggingface Models
+1. `HoogBERTaEncoder`
+ - [HoogBERTa](https://huggingface.co/new5558/HoogBERTa): `Feature Extraction` and `Mask Language Modeling`
+2. `HoogBERTaMuliTaskTagger`:
+ - [HoogBERTa-NER-lst20](https://huggingface.co/new5558/HoogBERTa-NER-lst20): `Named-entity recognition (NER)` based on LST20
+ - [HoogBERTa-POS-lst20](https://huggingface.co/new5558/HoogBERTa-POS-lst20): `Part-of-speech tagging (POS)` based on LST20
+ - [HoogBERTa-SENTENCE-lst20](https://huggingface.co/new5558/HoogBERTa-SENTENCE-lst20): `Clause Boundary Classification` based on LST20
+
 # Citation
 
 Please cite as:
